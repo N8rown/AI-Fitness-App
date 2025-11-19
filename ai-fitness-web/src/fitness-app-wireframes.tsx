@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Menu, User, MessageSquare, Calendar, TrendingUp, Trophy, ChevronRight, Plus, Check, Bell } from 'lucide-react';
 
 const WireframeApp = () => {
   const [currentScreen, setCurrentScreen] = useState('home');
 
-  const Screen = ({ children, title }) => (
+  const Screen = ({ children, title }: { children: React.ReactNode; title: string }) => (
     <div className="w-full max-w-md mx-auto bg-white rounded-lg shadow-2xl overflow-hidden">
       <div className="bg-gray-100 px-4 py-3 border-b flex items-center justify-between">
         <Menu className="w-6 h-6 text-gray-600" />
@@ -17,7 +17,7 @@ const WireframeApp = () => {
     </div>
   );
 
-  const NavBar = ({ active }) => (
+  const NavBar = ({ active }: { active: string }) => (
     <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t flex justify-around py-3">
       {[
         { id: 'home', icon: Calendar, label: 'Plan' },
