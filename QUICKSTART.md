@@ -1,32 +1,13 @@
 # Quick Start - AI Fitness App
 
 ## 🚀 Fastest Setup
-To start with Docker (when Docker Desktop is running):
-docker-compose up --build
-To start locally:
-Terminal 1: cd api && pnpm dev
-Terminal 2: cd ai-fitness-web && pnpm dev
 
-### Option 1: Docker (Recommended for Production)
+### ⭐ Recommended: Local Development (Works Perfectly)
 
-**Prerequisites:** Docker Desktop must be running
+No Docker, no complexity. Just two terminals:
 
 ```bash
-cd AI-Fitness-App
-docker-compose up --build
-```
-
-Then open: http://localhost:5173
-
-**Windows Note:** Make sure Docker Desktop is running. If you get "daemon not accessible" error:
-1. Open Docker Desktop application
-2. Wait for it to fully start (icon says "Docker Desktop is running")
-3. Try `docker-compose up` again
-
-### Option 2: Local Development (Fast, No Docker Needed)
-
-```bash
-# Terminal 1 - Backend
+# Terminal 1 - Backend API
 cd api
 pnpm install
 pnpm approve-builds  # (when prompted, select better-sqlite3)
@@ -38,7 +19,13 @@ pnpm install
 pnpm dev             # runs on http://localhost:5173
 ```
 
-Then open: http://localhost:5173
+Then open: **http://localhost:5173**
+
+---
+
+### Docker (Advanced - WIP)
+
+For production or if you prefer containers, Docker support is available but requires additional setup for native modules. Coming soon with improved stability.
 
 ---
 

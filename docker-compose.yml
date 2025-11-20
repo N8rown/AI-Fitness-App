@@ -11,10 +11,6 @@ services:
       PORT: 3000
       NODE_ENV: development
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
-    volumes:
-      - ./api:/app
-      - /app/node_modules
-      - ./api/fitness.db:/app/fitness.db
 
   web:
     build:
@@ -26,6 +22,3 @@ services:
       VITE_API_URL: http://api:3000/api
     depends_on:
       - api
-    volumes:
-      - ./ai-fitness-web:/app
-      - /app/node_modules
