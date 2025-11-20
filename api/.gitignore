@@ -1,0 +1,7 @@
+# Git ignore for API and Web folders
+node_modules/
+dist/
+.env
+.env.local
+*.log
+.DS_Store

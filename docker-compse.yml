@@ -1,0 +1,48 @@
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    ports: [ "5432:5432" ]
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+      POSTGRES_DB: fitness
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: ./api
+    restart: unless-stopped
+    ports: [ "3000:3000" ]
+    environment:
+      DATABASE_URL: postgresql://app:app@db:5432/fitness
+      JWT_SECRET: your-secret-key-change-in-production
+      PORT: 3000
+      NODE_ENV: production
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+
+  web:
+    build: ./ai-fitness-web
+    restart: unless-stopped
+    ports: [ "5173:5173" ]
+    environment:
+      VITE_API_URL: http://localhost:3000/api
+    depends_on:
+      - api
+    volumes:
+      - ./ai-fitness-web:/app
+      - /app/node_modules
+
+volumes:
+  pgdata:
