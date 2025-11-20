@@ -1,10 +1,41 @@
 # Quick Start - AI Fitness App
 
-## 🚀 30-Second Setup (Docker)
+## 🚀 Fastest Setup
+To start with Docker (when Docker Desktop is running):
+docker-compose up --build
+To start locally:
+Terminal 1: cd api && pnpm dev
+Terminal 2: cd ai-fitness-web && pnpm dev
+
+### Option 1: Docker (Recommended for Production)
+
+**Prerequisites:** Docker Desktop must be running
 
 ```bash
 cd AI-Fitness-App
-docker-compose up
+docker-compose up --build
+```
+
+Then open: http://localhost:5173
+
+**Windows Note:** Make sure Docker Desktop is running. If you get "daemon not accessible" error:
+1. Open Docker Desktop application
+2. Wait for it to fully start (icon says "Docker Desktop is running")
+3. Try `docker-compose up` again
+
+### Option 2: Local Development (Fast, No Docker Needed)
+
+```bash
+# Terminal 1 - Backend
+cd api
+pnpm install
+pnpm approve-builds  # (when prompted, select better-sqlite3)
+pnpm dev             # runs on http://localhost:3000
+
+# Terminal 2 - Frontend (in separate terminal)
+cd ai-fitness-web
+pnpm install
+pnpm dev             # runs on http://localhost:5173
 ```
 
 Then open: http://localhost:5173
@@ -20,7 +51,7 @@ Your AI Fitness App now has a complete backend with:
 - Login & JWT tokens
 - Secure endpoints with middleware
 
-### ✅ Database (PostgreSQL)
+### ✅ Database (SQLite - No Setup Required)
 - User accounts
 - Fitness plans & logs
 - Chat history

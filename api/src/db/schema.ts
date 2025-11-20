@@ -6,10 +6,10 @@ export async function initializeDatabase() {
   // Users table
   await query(`
     CREATE TABLE IF NOT EXISTS users (
-      id SERIAL PRIMARY KEY,
-      email VARCHAR(255) UNIQUE NOT NULL,
-      password VARCHAR(255) NOT NULL,
-      name VARCHAR(255) NOT NULL,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      email TEXT UNIQUE NOT NULL,
+      password TEXT NOT NULL,
+      name TEXT NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
@@ -18,13 +18,13 @@ export async function initializeDatabase() {
   // User profiles (onboarding data)
   await query(`
     CREATE TABLE IF NOT EXISTS user_profiles (
-      id SERIAL PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       user_id INTEGER NOT NULL UNIQUE REFERENCES users(id) ON DELETE CASCADE,
-      goal VARCHAR(50),
-      experience VARCHAR(50),
-      equipment TEXT[],
+      goal TEXT,
+      experience TEXT,
+      equipment TEXT,
       schedule INTEGER,
-      unit VARCHAR(10),
+      unit TEXT,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
@@ -33,11 +33,11 @@ export async function initializeDatabase() {
   // Fitness plans
   await query(`
     CREATE TABLE IF NOT EXISTS fitness_plans (
-      id SERIAL PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-      name VARCHAR(255) NOT NULL,
-      plan_data JSONB NOT NULL,
-      accepted BOOLEAN DEFAULT FALSE,
+      name TEXT NOT NULL,
+      plan_data TEXT NOT NULL,
+      accepted BOOLEAN DEFAULT 0,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
@@ -46,11 +46,11 @@ export async function initializeDatabase() {
   // Workout logs
   await query(`
     CREATE TABLE IF NOT EXISTS workout_logs (
-      id SERIAL PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
       plan_id INTEGER REFERENCES fitness_plans(id) ON DELETE SET NULL,
-      workout_id VARCHAR(255) NOT NULL,
-      entries JSONB NOT NULL,
+      workout_id TEXT NOT NULL,
+      entries TEXT NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
   `);
@@ -58,9 +58,9 @@ export async function initializeDatabase() {
   // Chat messages
   await query(`
     CREATE TABLE IF NOT EXISTS chat_messages (
-      id SERIAL PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-      role VARCHAR(50) NOT NULL,
+      role TEXT NOT NULL,
       message TEXT NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );

@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
-import { initializeDatabase } from './db/schema.js';
-import { closePool } from './db/connection.js';
+import { initializeDatabase } from './schema.js';
+import { closePool } from './connection.js';
 
 dotenv.config();
 
